@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ECET 499</title>
+  </head>
+  <body>
+    <!--//creating a simple lable to let the user know the purpose of the checkbox-->
+    <h1>Toggle Switch</h1>
+          <!--adding a checkbox to the page and assigning it an id "tag" that will be
+              used to reference the checkbox when we try to work with it below. -->
+          <input type="checkbox" id="myonoffswitch">
+
+    <!-- Will be used below to select our checkbox, etc -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <!--this is the link to the socket.io module that is used to create the socket -->
+    <!--<script src="https://cdn.socket.io/socket.io-1.0.4.js"></script>-->
+    <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <!--this is the functionality that does the work.-->
+    <script type="text/javascript">
+          //creating a socket variable
+          var socket = io.connect('/');
+
+          //this function is called when the state of the checkbox
+          //  is changed. It then calls a callback function that is
+          //  defined inline here. The callback function uses the
+          //  built in functions from socket.io to broadcast the
+          //  message "stateChanged", along with a boolean value
+          //  that is retrieved from the value of the checkbox.
+          $("#myonoffswitch").change(function(){
+            socket.emit("stateChanged", this.checked);
+          });
+
+          </script>
+  </body>
+</html>
